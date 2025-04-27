@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Selection App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="login-screen" class="screen active">
+    <div class="container">
+      <h1>Bem-vindo!</h1>
+      <input type="text" id="username" placeholder="Usuário">
+      <input type="password" id="password" placeholder="Senha">
+      <button onclick="login()">Entrar</button>
+    </div>
+  </div>
+
+  <div id="meal-selection" class="screen">
+    <div class="container">
+      <h1>Escolha sua refeição</h1>
+      <button onclick="navigateToMeals('Café da manhã')">Café da Manhã</button>
+      <button onclick="navigateToMeals('Almoço')">Almoço</button>
+      <button onclick="navigateToMeals('Jantar')">Jantar</button>
+    </div>
+  </div>
+
+  <div id="meal-detail" class="screen">
+    <div class="container">
+      <h1 id="meal-name"></h1>
+      <div id="meal-list"></div>
+      <button onclick="goToCheckout()">Continuar</button>
+    </div>
+  </div>
+
+  <div id="checkout-screen" class="screen">
+    <div class="container">
+      <h1>Finalizar Pedido</h1>
+      <input type="text" id="address" placeholder="Digite seu endereço">
+      <select id="payment-method">
+        <option value="">Selecione a forma de pagamento</option>
+        <option value="cartao">Cartão</option>
+        <option value="pix">PIX</option>
+        <option value="dinheiro">Dinheiro</option>
+      </select>
+      <button onclick="finishOrder()">Finalizar Pedido</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
