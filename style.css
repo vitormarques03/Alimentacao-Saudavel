@@ -1,23 +1,18 @@
-
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #A5D6A7; /* Fundo verde claro em todas as telas */
+  background-color: #A5D6A7;
 }
 
-/* Estilos para todas as telas */
-#login-screen,
-#meal-selection,
-#meal-detail {
-  background-color: #A5D6A7; /* Fundo verde */
+#login-screen, #meal-selection, #meal-detail {
+  background-color: #A5D6A7;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   padding: 20px;
-  box-sizing: border-box;
 }
 
 .container {
@@ -30,8 +25,7 @@ body {
   text-align: center;
 }
 
-h1,
-h2 {
+h1, h2 {
   font-size: 28px;
   font-weight: bold;
   margin-bottom: 20px;
@@ -63,8 +57,7 @@ h2 {
   opacity: 0.8;
 }
 
-.meal-button,
-.meal-selection {
+.meal-button, .meal-selection {
   width: 100%;
   padding: 16px;
   font-size: 18px;
@@ -80,8 +73,7 @@ h2 {
   transition: background-color 0.3s;
 }
 
-.meal-button:hover,
-.login-button:hover {
+.meal-button:hover, .login-button:hover {
   opacity: 0.8;
 }
 
@@ -150,4 +142,20 @@ h2 {
   font-size: 18px;
   font-weight: normal;
   color: #555;
+}
+
+.meal-quantity {
+  margin-top: 10px;
+  font-size: 16px;
+  padding: 8px;
+  width: 80px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.meal-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
 }
