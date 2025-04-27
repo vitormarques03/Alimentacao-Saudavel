@@ -1,53 +1,53 @@
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Food Selection App</title>
+  <title>Seleção de Refeição</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <div id="login-screen" class="screen active">
+
+  <!-- Tela de Login -->
+  <div id="login-screen">
     <div class="container">
-      <h1>Bem-vindo!</h1>
-      <input type="text" id="username" placeholder="Usuário">
-      <input type="password" id="password" placeholder="Senha">
-      <button onclick="login()">Entrar</button>
+      <h1>Login</h1>
+      <input type="text" id="username" placeholder="Digite seu nome" />
+      <input type="password" id="password" placeholder="Digite sua senha" />
+      <button class="login-button" onclick="login()">Entrar</button>
     </div>
   </div>
 
-  <div id="meal-selection" class="screen">
+  <!-- Tela de Seleção de Refeição -->
+  <div id="meal-selection" style="display: none;">
     <div class="container">
-      <h1>Escolha sua refeição</h1>
-      <button onclick="navigateToMeals('Café da manhã')">Café da Manhã</button>
-      <button onclick="navigateToMeals('Almoço')">Almoço</button>
-      <button onclick="navigateToMeals('Jantar')">Jantar</button>
+      <h1>Escolha uma opção abaixo</h1>
+      <button class="meal-button cafe" onclick="navigateToMeals('Café da manhã')">
+        <span class="icon">🍳</span>Café da manhã
+      </button>
+      <button class="meal-button almoco" onclick="navigateToMeals('Almoço')">
+        <span class="icon">🍴</span>Almoço
+      </button>
+      <button class="meal-button jantar" onclick="navigateToMeals('Jantar')">
+        <span class="icon">🍽️</span>Jantar
+      </button>
     </div>
   </div>
 
-  <div id="meal-detail" class="screen">
-    <div class="container">
-      <h1 id="meal-name"></h1>
-      <div id="meal-list"></div>
-      <button onclick="goToCheckout()">Continuar</button>
-    </div>
-  </div>
-
-  <div id="checkout-screen" class="screen">
-    <div class="container">
-      <h1>Finalizar Pedido</h1>
-      <input type="text" id="address" placeholder="Digite seu endereço">
-      <select id="payment-method">
-        <option value="">Selecione a forma de pagamento</option>
-        <option value="cartao">Cartão</option>
-        <option value="pix">PIX</option>
-        <option value="dinheiro">Dinheiro</option>
-      </select>
-      <button onclick="finishOrder()">Finalizar Pedido</button>
+  <!-- Tela de Detalhes da Refeição -->
+  <div id="meal-detail" style="display: none;">
+    <div class="container meal-detail-container">
+      <h2 id="meal-name"></h2>
+      <p>Escolha um prato para o seu <span id="meal-type"></span>:</p>
+      <div id="meal-list" class="meal-list"></div>
+      <button class="back-button" onclick="goBack()">Voltar</button>
     </div>
   </div>
 
   <script src="script.js"></script>
 </body>
+
 </html>
