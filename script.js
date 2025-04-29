@@ -1,115 +1,191 @@
-const meals = {
-  "Café da manhã": [
-    { name: "Panquecas", price: "R$ 15,00" },
-    { name: "Torradas com ovos", price: "R$ 12,00" },
-    { name: "Café preto", price: "R$ 5,00" },
-    { name: "Frutas", price: "R$ 8,00" }
-  ],
-  Almoço: [
-    { name: "Arroz e feijão", price: "R$ 20,00" },
-    { name: "Feijoada", price: "R$ 25,00" },
-    { name: "Frango grelhado", price: "R$ 22,00" },
-    { name: "Salada", price: "R$ 15,00" }
-  ],
-  Jantar: [
-    { name: "Sopa de legumes", price: "R$ 18,00" },
-    { name: "Pizza", price: "R$ 30,00" },
-    { name: "Lasanha", price: "R$ 28,00" },
-    { name: "Salada de frutas", price: "R$ 12,00" }
-  ]
-};
-
-let selectedItems = [];
-
-function login() {
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
-  if (username && password) {
-    document.getElementById("login-screen").style.display = "none";
-    document.getElementById("meal-selection").style.display = "flex";
-  } else {
-    alert("Por favor, preencha ambos os campos!");
+const produtos = [
+  {
+    nome: "Salada Tropical",
+    preco: 20,
+    imagem:
+      "https://img.freepik.com/fotos-gratis/salada-fresca-com-legumes_144627-16242.jpg"
+  },
+  {
+    nome: "Frango Grelhado",
+    preco: 35,
+    imagem:
+      "https://img.freepik.com/fotos-gratis/frango-grelhado-saboroso-com-legumes-grelhados_2829-14231.jpg"
+  },
+  {
+    nome: "Tapioca",
+    preco: 10,
+    imagem:
+      "https://img.freepik.com/fotos-gratis/deliciosa-tapioca-recheada-com-coco-e-morango_23-2147828182.jpg"
+  },
+  {
+    nome: "Suco Natural",
+    preco: 8,
+    imagem:
+      "https://img.freepik.com/fotos-gratis/suco-natural-de-laranja-com-gelo_2829-5465.jpg"
+  },
+  {
+    nome: "Frutas Frescas",
+    preco: 15,
+    imagem:
+      "https://img.freepik.com/fotos-gratis/prato-com-frutas_144627-16829.jpg"
   }
+];
+
+let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+
+function esconderTodas() {
+  document
+    .querySelectorAll(".tela")
+    .forEach((tela) => tela.classList.add("hidden"));
 }
 
-function navigateToMeals(mealName) {
-  document.getElementById("meal-selection").style.display = "none";
-  const mealDetail = document.getElementById("meal-detail");
-  document.getElementById("meal-name").innerText = `Pratos de ${mealName}`;
-  document.getElementById("meal-type").innerText = mealName;
-  const mealList = document.getElementById("meal-list");
-  mealList.innerHTML = "";
-  meals[mealName].forEach((meal, index) => {
-    const mealItem = document.createElement("div");
-    mealItem.classList.add("meal-item");
-    mealItem.innerHTML = `${meal.name} <span class="meal-price">(${meal.price})</span>`;
+function mostrarCadastro() {
+  esconderTodas();
+  document.getElementById("tela-cadastro").classList.remove("hidden");
+}
 
-    const quantityInput = document.createElement("input");
-    quantityInput.classList.add("quantity-input");
-    quantityInput.type = "number";
-    quantityInput.value = 0;
-    quantityInput.min = 0;
+function mostrarLogin() {
+  esconderTodas();
+  document.getElementById("tela-login").classList.remove("hidden");
+}
 
-    mealItem.appendChild(quantityInput);
+function mostrarEscolha() {
+  esconderTodas();
+  document.getElementById("tela-escolha").classList.remove("hidden");
+  montarCardapio();
+}
 
-    mealItem.onclick = () => addMealToSelection(meal, quantityInput);
-    mealList.appendChild(mealItem);
+function mostrarCarrinho() {
+  esconderTodas();
+  document.getElementById("tela-carrinho").classList.remove("hidden");
+  atualizarCarrinho();
+}
+
+function mostrarEspera() {
+  esconderTodas();
+  document.getElementById("tela-espera").classList.remove("hidden");
+}
+
+document.getElementById("loginForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  mostrarEscolha();
+});
+
+document
+  .getElementById("cadastroForm")
+  .addEventListener("submit", function (e) {
+    e.preventDefault();
+    alert("Cadastro realizado! Faça login.");
+    mostrarLogin();
   });
-  mealDetail.style.display = "flex";
+
+function montarCardapio() {
+  const cardapio = document.getElementById("cardapio");
+  cardapio.innerHTML = "";
+  produtos.forEach((produto) => {
+    const div = document.createElement("div");
+    div.className = "item";
+    div.innerHTML = `
+      <img src="${produto.imagem}">
+      <h4>${produto.nome}</h4>
+      <p>R$ ${produto.preco.toFixed(2)}</p>
+      <button onclick='adicionarCarrinho(${JSON.stringify(
+        produto
+      )})'>Adicionar</button>
+    `;
+    cardapio.appendChild(div);
+  });
 }
 
-function addMealToSelection(meal, quantityInput) {
-  const quantity = parseInt(quantityInput.value);
-  if (quantity > 0) {
-    selectedItems.push({
-      meal: meal.name,
-      quantity: quantity,
-      price: meal.price
-    });
-  }
+function adicionarCarrinho(produto) {
+  carrinho.push(produto);
+  localStorage.setItem("carrinho", JSON.stringify(carrinho));
+  alert("Adicionado ao carrinho!");
 }
 
-function goBack() {
-  document.getElementById("meal-selection").style.display = "flex";
-  document.getElementById("meal-detail").style.display = "none";
-}
-
-function goToAddress() {
-  if (selectedItems.length === 0) {
-    alert("Você não selecionou nenhum item!");
-    return;
-  }
-
-  document.getElementById("meal-detail").style.display = "none";
-  document.getElementById("payment-screen").style.display = "flex";
-  displaySelectedItems();
-}
-
-function displaySelectedItems() {
-  let total = 0;
-  let itemsHtml = "";
-  selectedItems.forEach((item) => {
-    const itemTotal =
-      parseInt(item.quantity) * parseFloat(item.price.replace("R$", "").trim());
-    total += itemTotal;
-    itemsHtml += `<p>${item.meal} x ${item.quantity} = R$ ${itemTotal.toFixed(
+function atualizarCarrinho() {
+  const itens = document.getElementById("itensCarrinho");
+  const total = document.getElementById("total");
+  itens.innerHTML = "";
+  let soma = 0;
+  carrinho.forEach((item, index) => {
+    const div = document.createElement("div");
+    div.innerHTML = `${item.nome} - R$ ${item.preco.toFixed(
       2
-    )}</p>`;
+    )} <button onclick="removerItem(${index})">Remover</button>`;
+    itens.appendChild(div);
+    soma += item.preco;
   });
-
-  const totalPrice = total.toFixed(2);
-  itemsHtml += `<h3>Total: R$ ${totalPrice}</h3>`;
-  document.getElementById("meal-list").innerHTML = itemsHtml;
+  total.innerText = `Total: R$ ${soma.toFixed(2)}`;
 }
 
-function finishOrder() {
-  const address = document.getElementById("address").value;
-  const payment = document.getElementById("payment").value;
-  if (address && payment) {
+function removerItem(index) {
+  carrinho.splice(index, 1);
+  localStorage.setItem("carrinho", JSON.stringify(carrinho));
+  atualizarCarrinho();
+}
+
+function finalizarPedido() {
+  const endereco = document.getElementById("endereco").value.trim();
+  const pagamento = document.getElementById("pagamento").value;
+
+  if (endereco && pagamento) {
     alert(
-      `Pedido finalizado! Endereço: ${address}, Forma de pagamento: ${payment}`
+      `✅ Pedido realizado com sucesso!\n\n📍 Endereço: ${endereco}\n💳 Forma de pagamento: ${pagamento}`
     );
+    localStorage.clear();
+    carrinho = [];
+    mostrarEspera();
   } else {
-    alert("Por favor, preencha todos os campos!");
+    alert("⚠️ Por favor, preencha o endereço e a forma de pagamento!");
+  }
+}
+
+function inicializarAutocomplete() {
+  const input = document.getElementById("endereco");
+  const autocomplete = new google.maps.places.Autocomplete(input, {
+    types: ["geocode"],
+    componentRestrictions: { country: "br" }
+  });
+
+  autocomplete.addListener("place_changed", function () {
+    const place = autocomplete.getPlace();
+    if (place.geometry) {
+      const mapa = document.getElementById("mapa");
+      mapa.src = `https://maps.google.com/maps?q=${place.geometry.location.lat()},${place.geometry.location.lng()}&output=embed`;
+    }
+  });
+}
+
+window.onload = function () {
+  if (typeof google !== "undefined") {
+    inicializarAutocomplete();
+  }
+};
+function confirmarCarrinho() {
+  esconderTodas();
+  document.getElementById("tela-endereco").classList.remove("hidden");
+}
+
+function finalizarPedido() {
+  const rua = document.getElementById("rua").value.trim();
+  const numero = document.getElementById("numero").value.trim();
+  const bairro = document.getElementById("bairro").value.trim();
+  const cidade = document.getElementById("cidade").value.trim();
+  const estado = document.getElementById("estado").value.trim();
+  const cep = document.getElementById("cep").value.trim();
+  const pagamento = document.getElementById("pagamento").value;
+
+  if (rua && numero && bairro && cidade && estado && cep && pagamento) {
+    alert(
+      `✅ Pedido realizado com sucesso!\n\n📍 Endereço: ${rua}, ${numero} - ${bairro} - ${cidade}/${estado}, CEP: ${cep}\n💳 Forma de pagamento: ${pagamento}`
+    );
+    localStorage.clear();
+    carrinho = [];
+    mostrarEspera();
+  } else {
+    alert(
+      "⚠️ Por favor, preencha todos os campos do endereço e a forma de pagamento!"
+    );
   }
 }

@@ -3,59 +3,89 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Alimentação Saudável</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://maps.googleapis.com/maps/api/js?key=SUA_CHAVE_AQUI&libraries=places"></script>
 </head>
 
 <body>
-
-  <!-- Tela de Login -->
-  <div id="login-screen">
+  <!-- Tela Login -->
+  <section id="tela-login" class="tela">
     <div class="container">
+      <img src="https://img.freepik.com/vetores-gratis/vetor-de-macronutrientes-dos-principais-grupos-de-alimentos_1308-130027.jpg" class="logo">
       <h1>Login</h1>
-      <input type="text" id="username" placeholder="Digite seu nome" />
-      <input type="password" id="password" placeholder="Digite sua senha" />
-      <button class="login-button" onclick="login()">Entrar</button>
+      <form id="loginForm">
+        <input type="text" id="usuarioLogin" placeholder="Usuário" required>
+        <input type="password" id="senhaLogin" placeholder="Senha" required>
+        <button type="submit">Entrar</button>
+        <p>Não tem conta? <a href="#" onclick="mostrarCadastro()">Cadastre-se</a></p>
+      </form>
     </div>
-  </div>
+  </section>
 
-  <!-- Tela de Seleção de Refeição -->
-  <div id="meal-selection" style="display: none;">
+  <!-- Tela Cadastro -->
+  <section id="tela-cadastro" class="tela hidden">
     <div class="container">
-      <h1>Escolha uma opção abaixo</h1>
-      <button class="meal-button cafe" onclick="navigateToMeals('Café da manhã')">
-        <span class="icon">🍳</span>Café da manhã
-      </button>
-      <button class="meal-button almoco" onclick="navigateToMeals('Almoço')">
-        <span class="icon">🍴</span>Almoço
-      </button>
-      <button class="meal-button jantar" onclick="navigateToMeals('Jantar')">
-        <span class="icon">🍽️</span>Jantar
-      </button>
+      <img src="https://img.freepik.com/vetores-gratis/vetor-de-macronutrientes-dos-principais-grupos-de-alimentos_1308-130027.jpg" class="logo">
+      <h1>Cadastro</h1>
+      <form id="cadastroForm">
+        <input type="text" placeholder="Nome completo" required>
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Senha" required>
+        <button type="submit">Cadastrar</button>
+        <p>Já tem conta? <a href="#" onclick="mostrarLogin()">Voltar</a></p>
+      </form>
     </div>
-  </div>
+  </section>
 
-  <!-- Tela de Detalhes da Refeição -->
-  <div id="meal-detail" style="display: none;">
-    <div class="container meal-detail-container">
-      <h2 id="meal-name"></h2>
-      <p>Escolha os pratos para o seu <span id="meal-type"></span>:</p>
-      <div id="meal-list" class="meal-list"></div>
-      <button class="back-button" onclick="goBack()">Voltar</button>
-      <button class="proceed-button" onclick="goToAddress()">Ir para o pagamento</button>
-    </div>
-  </div>
-
-  <!-- Tela de Endereço e Pagamento -->
-  <div id="payment-screen" style="display: none;">
+  <!-- Tela Escolha -->
+  <section id="tela-escolha" class="tela hidden">
     <div class="container">
-      <h2>Informações para entrega e pagamento</h2>
-      <input type="text" id="address" placeholder="Digite seu endereço" />
-      <input type="text" id="payment" placeholder="Digite a forma de pagamento" />
-      <button class="payment-button" onclick="finishOrder()">Finalizar Pedido</button>
+      <h1>Escolha seu prato</h1>
+      <div class="cardapio" id="cardapio"></div>
+      <button onclick="mostrarCarrinho()">Ver Carrinho</button>
     </div>
-  </div>
+  </section>
+
+  <!-- Tela Carrinho -->
+  <section id="tela-carrinho" class="tela hidden">
+    <div class="container">
+      <h1>Seu Carrinho</h1>
+      <div id="itensCarrinho"></div>
+      <h2 id="total"></h2>
+      <button onclick="confirmarCarrinho()">Confirmar Pedidos</button>
+    </div>
+  </section>
+
+  <!-- Tela Endereço -->
+  <section id="tela-endereco" class="tela hidden">
+    <div class="container">
+      <h1>Endereço de Entrega</h1>
+      <input type="text" id="rua" placeholder="Rua" required>
+      <input type="text" id="numero" placeholder="Número" required>
+      <input type="text" id="bairro" placeholder="Bairro" required>
+      <input type="text" id="cidade" placeholder="Cidade" required>
+      <input type="text" id="estado" placeholder="Estado" required>
+      <input type="text" id="cep" placeholder="CEP" required>
+
+      <h3>Forma de Pagamento</h3>
+      <select id="pagamento">
+        <option value="pix">Pix</option>
+        <option value="credito">Cartão de Crédito</option>
+        <option value="debito">Cartão de Débito</option>
+      </select>
+      <button onclick="finalizarPedido()">Finalizar Pedido</button>
+    </div>
+  </section>
+
+  <!-- Tela de Espera -->
+  <section id="tela-espera" class="tela hidden">
+    <div class="container">
+      <h1>⏳ Pedido em andamento...</h1>
+      <p>Estamos preparando seu pedido. Em breve será entregue!</p>
+    </div>
+  </section>
 
   <script src="script.js"></script>
 </body>
