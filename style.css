@@ -75,3 +75,20 @@ button:hover {
 #itensCarrinho {
   margin: 20px 0;
 }
+/* Adicione isso no seu style.css se quiser melhorar a tela de refeição */
+#tela-refeicao button {
+  margin: 10px 0;
+  padding: 15px;
+  background-color: #7fb77e;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  width: 100%;
+  transition: 0.3s;
+}
+
+#tela-refeicao button:hover {
+  background-color: #5a9e64;
+}

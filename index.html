@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Alimentação Saudável</title>
   <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
@@ -39,7 +38,18 @@
     </div>
   </section>
 
-  <!-- Tela Escolha -->
+  <!-- Tela Escolher Refeição -->
+  <!-- Tela Escolha Refeição -->
+  <section id="tela-refeicao" class="tela hidden">
+    <div class="container">
+      <h1>Escolha sua refeição</h1>
+      <button onclick="selecionarRefeicao('cafe')">Café da Manhã</button>
+      <button onclick="selecionarRefeicao('almoco')">Almoço</button>
+      <button onclick="selecionarRefeicao('jantar')">Jantar</button>
+    </div>
+  </section>
+
+  <!-- Tela Escolha de Pratos -->
   <section id="tela-escolha" class="tela hidden">
     <div class="container">
       <h1>Escolha seu prato</h1>
@@ -79,11 +89,11 @@
     </div>
   </section>
 
-  <!-- Tela de Espera -->
-  <section id="tela-espera" class="tela hidden">
+  <!-- Tela de Aguardando Pedido -->
+  <section id="tela-aguardando" class="tela hidden">
     <div class="container">
-      <h1>⏳ Pedido em andamento...</h1>
-      <p>Estamos preparando seu pedido. Em breve será entregue!</p>
+      <h1>⏳ Seu pedido está sendo preparado!</h1>
+      <p>Obrigado por comprar conosco! Em breve seu pedido chegará até você.</p>
     </div>
   </section>
 
